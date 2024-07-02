@@ -2,6 +2,6 @@ from .views import *
 from django.urls import path
 
 urlpatterns = [
-    path("get/",getMovies, name="get"),
-    path("meta/",getMeta, name="getMeta"),
+    path("",get_movies),
+    path("meta/",get_meta),
 ]
