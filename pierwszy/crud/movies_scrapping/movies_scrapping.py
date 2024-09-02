@@ -32,7 +32,8 @@ def scrap_movies(urls):
                         link = header.get_attribute('href')
 
                         category = element.find_element(By.CSS_SELECTOR, '.sU_287')
-                        categories = category.text.lower().split(" ")
+                        category = category.text.replace(",","")
+                        categories = category.lower().split(" ")
 
                         img = element.find_element(By.CSS_SELECTOR, '._8K_RYd source').get_attribute('srcset')
 

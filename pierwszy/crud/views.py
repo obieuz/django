@@ -9,28 +9,32 @@ from .movies_scrapping.movies_scrapping import scrap_movies
 
 error = False
 
-
+#uwu
 def scrap_movies_script():
     try:
         with open(os.path.join(os.path.dirname(__file__), 'movies.json'), 'r+', encoding='utf-8') as file:
             data = json.load(file)
             if data["meta"]["days"][0] != datetime.date(datetime.now()).strftime("%d.%m"):
 
-                scrap_result = scrap_movies(["https://multikino.pl/repertuar/gdansk/","https://helios.pl/gdansk/kino"
+                cinemas = ["https://multikino.pl/repertuar/gdansk/","https://helios.pl/gdansk/kino"
                                                                                       "-helios-metropolia/repertuar",
                                              "https://iframe226.biletyna.pl/resize_intermediate.html?url=%2Fif"
                                              "%2Findex%2F%3Fifid%3D226&xdm_e=https%3A%2F%2Fwww.kinokameralnecafe.pl"
-                                             "&xdm_c=default8285&xdm_p=1"])
+                                             "&xdm_c=default8285&xdm_p=1"]
+
+                scrap_result = scrap_movies(cinemas)
 
                 if not scrap_result:
                     while not scrap_result:
-                        scrap_result = scrap_movies(["https://multikino.pl/repertuar/gdansk/"])
-
+                        scrap_result = scrap_movies(cinemas)
+                file.seek(0)
+                file.truncate(0)
                 file.seek(0)
                 file.write(scrap_result)
 
     except Exception as err:
         error = err
+        print(err)
 
 
 def get_movies(request):
