@@ -9,7 +9,6 @@ from .movies_scrapping.movies_scrapping import scrap_movies
 
 error = False
 
-#uwu
 def scrap_movies_script():
     try:
         with open(os.path.join(os.path.dirname(__file__), 'movies.json'), 'r+', encoding='utf-8') as file:

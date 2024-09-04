@@ -70,28 +70,29 @@ def scrap_movies(urls):
                     if day != len(days) - 1:
                         driver.execute_script("document.querySelector('.btns a:last-child').click()")
                 driver.switch_to.default_content()
-            if "multikino.pl" in url:
-                for day in range(10):
-                    time.sleep(4)
-                    elements = driver.find_elements(By.CLASS_NAME, "filmlist__item")
-                    for element in elements:
-                        header = element.find_element(By.CSS_SELECTOR, '.filmlist__title')
-                        title = header.text
-                        link = header.get_attribute('href')
-
-                        categoryDiv = element.find_elements(By.CSS_SELECTOR, '.film-details a')
-                        categories = []
-                        for category in categoryDiv:
-                            categories.append(category.text.lower())
-
-                        date = element.find_element(By.CLASS_NAME, 'filmlist__dayExpander').text.split(" ")[1]
-                        hoursDiv = element.find_elements(By.CSS_SELECTOR, '.small time')
-                        hours = []
-                        for hour in hoursDiv:
-                            hours.append(hour.text.replace(" ", ""))
-
-                        addingMovieHandler(movies_container, meta, title.capitalize(), date, hours, categories, link, False)
-                    driver.execute_script("document.querySelector('.timePicker_forw').click();")
+            # if "multikino.pl" in url:
+                # print("multikino")
+                # for day in range(10):
+                #     time.sleep(4)
+                #     elements = driver.find_elements(By.CLASS_NAME, "filmlist__item")
+                #     for element in elements:
+                #         header = element.find_element(By.CSS_SELECTOR, '.filmlist__title')
+                #         title = header.text
+                #         link = header.get_attribute('href')
+                #
+                #         categoryDiv = element.find_elements(By.CSS_SELECTOR, '.film-details a')
+                #         categories = []
+                #         for category in categoryDiv:
+                #             categories.append(category.text.lower())
+                #
+                #         date = element.find_element(By.CLASS_NAME, 'filmlist__dayExpander').text.split(" ")[1]
+                #         hoursDiv = element.find_elements(By.CSS_SELECTOR, '.small time')
+                #         hours = []
+                #         for hour in hoursDiv:
+                #             hours.append(hour.text.replace(" ", ""))
+                #
+                #         addingMovieHandler(movies_container, meta, title.capitalize(), date, hours, categories, link, False)
+                #     driver.execute_script("document.querySelector('.timePicker_forw').click();")
         movies_json = json.dumps(movies_container.movies, cls=MoviesContainerEncoder, ensure_ascii=False)
         meta_json = json.dumps(meta, cls=MetaEncoder, ensure_ascii=False)
 
